@@ -9,7 +9,8 @@ pipeline(
     fs.createReadStream(readFileName),
     csv({
         headers: ['book', 'author', 'amount', 'price'],
-        ignoreColumns: /amount/
+        ignoreColumns: /amount/,
+        checkType: true
     }),
     fs.createWriteStream(writeFileName),
     (err) => {
