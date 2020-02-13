@@ -1,5 +1,5 @@
-const readFileName = 'task1/csv/nodejs-hw1-ex1.csv';
-const writeFileName = 'task1/csv/nodejs-hw1-ex1.txt';
+const readFileName = 'src/task1/csv/nodejs-hw1-ex1.csv';
+const writeFileName = 'src/task1/csv/nodejs-hw1-ex1.txt';
 
 const { pipeline } = require('stream');
 const fs = require('fs');
