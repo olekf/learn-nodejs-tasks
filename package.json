@@ -3,6 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "esmodules": true
+          }
+        }
+      ]
+    ]
+  },
   "scripts": {
     "build": "babel src -d lib",
     "task1_1": "nodemon src/task1/task1_1",
