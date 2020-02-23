@@ -1,9 +1,9 @@
-const readFileName = 'task1/csv/nodejs-hw1-ex1.csv';
-const writeFileName = 'task1/csv/nodejs-hw1-ex1.txt';
+const readFileName = 'src/task1/csv/nodejs-hw1-ex1.csv';
+const writeFileName = 'src/task1/csv/nodejs-hw1-ex1.txt';
 
-const { pipeline } = require('stream');
-const fs = require('fs');
-const csv = require('csvtojson');
+import { pipeline } from 'stream';
+import fs from 'fs';
+import csv from 'csvtojson';
 
 const csvConfig = {
     headers: ['book', 'author', 'amount', 'price'],

@@ -3,9 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "esmodules": true
+          }
+        }
+      ]
+    ]
+  },
   "scripts": {
-    "task1_1": "nodemon task1/task1_1",
-    "task1_2": "nodemon task1/task1_2"
+    "build": "babel src -d lib",
+    "task1_1": "nodemon --exec babel-node src/task1/task1_1",
+    "task1_2": "nodemon --exec babel-node src/task1/task1_2"
   },
   "repository": {
     "type": "git",
@@ -15,6 +28,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "nodemon": "^2.0.2"
   },
   "dependencies": {
