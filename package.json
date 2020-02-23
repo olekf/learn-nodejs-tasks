@@ -17,8 +17,8 @@
   },
   "scripts": {
     "build": "babel src -d lib",
-    "task1_1": "nodemon src/task1/task1_1",
-    "task1_2": "nodemon src/task1/task1_2"
+    "task1_1": "nodemon --exec babel-node src/task1/task1_1",
+    "task1_2": "nodemon --exec babel-node src/task1/task1_2"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
     "nodemon": "^2.0.2"
   },
