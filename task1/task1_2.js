@@ -5,19 +5,23 @@ const { pipeline } = require('stream');
 const fs = require('fs');
 const csv = require('csvtojson');
 
+const csvConfig = {
+    headers: ['book', 'author', 'amount', 'price'],
+    ignoreColumns: /amount/,
+    checkType: true
+};
+
 pipeline(
     fs.createReadStream(readFileName),
-    csv({
-        headers: ['book', 'author', 'amount', 'price'],
-        ignoreColumns: /amount/,
-        checkType: true
-    }),
+    csv(csvConfig),
     fs.createWriteStream(writeFileName),
-    (err) => {
-        if (err) {
-            console.error('Pipeline failed.', err);
-        } else {
-            console.log('Pipeline succeeded.');
-        }
-    }
+    errorHandler
 );
+
+function errorHandler(err) {
+    if (err) {
+        console.error('Pipeline failed.', err);
+    } else {
+        console.log('Pipeline succeeded.');
+    }
+}
