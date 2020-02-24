@@ -1,5 +1,4 @@
 import express from 'express';
-import util from 'util';
 import userRepository from './userRepository';
 
 const app = express();
@@ -10,13 +9,7 @@ app.use(express.json());
 app.use(router);
 
 router.param('id', (req, res, next, id) => {
-    const user = userRepository.getUserById(id);
-    if (user.id === undefined) {
-        const err = new Error(util.format('User not Found: %s', id));
-        err.status = 404;
-        return next(err);
-    }
-    req.user = user;
+    req.user = userRepository.getUserById(id);
     return next();
 });
 
