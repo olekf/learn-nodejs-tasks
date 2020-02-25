@@ -6,7 +6,7 @@ const router = express.Router();
 
 app.listen(3000);
 app.use(express.json());
-app.use(router);
+app.use('/', router);
 
 router.param('id', (req, res, next, id) => {
     req.user = userRepository.getUserById(id);
