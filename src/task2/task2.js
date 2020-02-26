@@ -1,5 +1,6 @@
 import express from 'express';
 import Joi from 'joi';
+import morgan from 'morgan';
 import userRepository from './userRepository';
 
 const app = express();
@@ -23,6 +24,7 @@ const putUserSchema = Joi.object().keys({
 
 app.listen(3000);
 app.use(express.json());
+app.use(morgan(':method :url'));
 app.use('/', router);
 
 router.param('id', (req, res, next, id) => {
