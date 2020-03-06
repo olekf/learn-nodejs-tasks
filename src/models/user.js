@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import util from 'util';
 
 class UserRepository {
     constructor() {
@@ -8,8 +7,8 @@ class UserRepository {
 
     getUserById(userId) {
         const existingUser = Object.assign({}, this._users.get(userId));
-        if (existingUser.id === undefined || existingUser.isDeleted) {
-            const error = Error(util.format('User with id %s not found or deleted', userId));
+        if (!existingUser.id || existingUser.isDeleted) {
+            const error = Error(`User with id ${userId} not found or deleted`);
             error.status = 404;
             throw error;
         }
@@ -48,4 +47,4 @@ class UserRepository {
     }
 }
 
-module.exports = new UserRepository();
+export const userRepository = new UserRepository();
