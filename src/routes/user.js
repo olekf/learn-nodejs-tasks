@@ -1,5 +1,6 @@
 import express from 'express';
 import { userRepository } from "../models/user";
+import { validatePostUserSchema, validatePutUserSchema } from "../routes/validation";
 
 export const userRouter = express.Router();
 
@@ -12,6 +13,7 @@ userRouter.route('/:id')
     .get((req, res) => {
         res.json(req.user);
     })
+    .put(validatePostUserSchema())
     .put((req, res) => {
         const updatedUser = userRepository.updateUser(req.user.id, req.body);
         res.json(updatedUser);
@@ -31,6 +33,7 @@ userRouter.route('/')
             res.json(userRepository.getAutoSuggestUsers(loginSubstring, Number.parseInt(limit, 10)));
         }
     })
+    .post(validatePutUserSchema())
     .post((req, res) => {
         const storedUser = userRepository.createUser(req.body);
         res.json(storedUser);
