@@ -18,7 +18,8 @@
   "scripts": {
     "build": "babel src -d lib",
     "task1_1": "nodemon --exec babel-node src/task1/task1_1",
-    "task1_2": "nodemon --exec babel-node src/task1/task1_2"
+    "task1_2": "nodemon --exec babel-node src/task1/task1_2",
+    "task2": "nodemon --exec 'eslint src/task2/*.js && babel-node src/task2/task2'"
   },
   "repository": {
     "type": "git",
@@ -32,9 +33,13 @@
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
     "nodemon": "^2.0.2"
   },
   "dependencies": {
-    "csvtojson": "^2.0.10"
+    "csvtojson": "^2.0.10",
+    "express": "latest",
+    "uuid": "latest"
   }
 }
