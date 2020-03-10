@@ -1,5 +1,5 @@
-import Joi from "joi";
-import { validateSchema } from "../utils/utils";
+import Joi from 'joi';
+import { validateSchema } from '../utils/utils';
 
 const optionalLoginRule = Joi.string().alphanum().min(3).max(30);
 const optionalPasswordRule = Joi.string().regex(/^(?=.*[a-zA-Z])(?=.*[0-9]).*$/);

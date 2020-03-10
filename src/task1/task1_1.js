@@ -2,11 +2,12 @@ import EventEmitter from 'events';
 const eventEmitter = new EventEmitter();
 
 function lineListener(line) {
-    process.stdout.write(reverseLine(line) + '\n');
+    const reversedLine = reverseLine(line);
+    process.stdout.write(`${reversedLine}\n`);
 }
 
 function reverseLine(line) {
-    return line.split("").reverse().join("");
+    return line.split('').reverse().join('');
 }
 
 function emitLine(line) {

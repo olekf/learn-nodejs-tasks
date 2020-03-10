@@ -1,6 +1,6 @@
 import express from 'express';
-import { userRepository } from "../models/user";
-import { validatePostUserSchema, validatePutUserSchema } from "../routes/validation";
+import { userRepository } from '../models/user';
+import { validatePostUserSchema, validatePutUserSchema } from '../routes/validation';
 
 export const userRouter = express.Router();
 
