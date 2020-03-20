@@ -41,7 +41,8 @@
     "csvtojson": "^2.0.10",
     "express": "latest",
     "joi": "^14.3.1",
+    "morgan": "latest",
     "uuid": "latest",
-    "morgan": "latest"
+    "winston": "^3.2.1"
   }
 }
