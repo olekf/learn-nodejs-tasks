@@ -15,3 +15,12 @@ app.use((err, req, res, next) => {
     res.status(500).send('Internal Server Error');
     next();
 });
+
+process
+    .on('unhandledRejection', (reason, promise) => {
+        logger.error('Unhandled rejection', { rejectionReason: reason, rejectionPromise: promise });
+    })
+    .on('uncaughtException', err => {
+        logger.error('Uncaught exception thrown', { uncaughtError: err });
+        process.exit(1);
+    });
