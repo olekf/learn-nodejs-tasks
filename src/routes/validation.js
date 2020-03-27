@@ -17,5 +17,11 @@ const putUserSchema = Joi.object().keys({
     age: optionalAgeRule
 });
 
+const authenticateSchema = Joi.object().keys({
+    username: Joi.string().required(),
+    password: Joi.string().required()
+});
+
 export const validatePostUserSchema = () => validateSchema(postUserSchema);
 export const validatePutUserSchema = () => validateSchema(putUserSchema);
+export const validateAuthenticateSchema = () => validateSchema(authenticateSchema);

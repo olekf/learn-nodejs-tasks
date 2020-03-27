@@ -1,8 +1,18 @@
 import { v4 as uuidv4 } from 'uuid';
+import { logger } from '../config/winston';
 
 class UserRepository {
     constructor() {
         this._users = new Map();
+
+        const defaultPassword = uuidv4();
+        this.createUser({
+            login: 'admin',
+            password: defaultPassword,
+            age: 130
+        });
+
+        logger.info(`Use admin password: ${defaultPassword}`);
     }
 
     getUserById(userId) {
@@ -26,6 +36,11 @@ class UserRepository {
         const updatedUser = Object.assign(existingUser, newUserDetails, { id: userId });
         this._users.set(userId, updatedUser);
         return updatedUser;
+    }
+
+    getUserByLogin(login) {
+        return this.getAllUsers()
+            .find(user => user.login === login && !user.isDeleted);
     }
 
     getAutoSuggestUsers(loginSubstring, limit) {
