@@ -3,12 +3,12 @@ import jwt from 'jsonwebtoken';
 import { validateAuthenticateSchema } from './validation';
 import { userRepository } from '../models/user';
 
-export const rootRouter = express.Router();
+export const authRouter = express.Router();
 
 const loginPath = '/login';
 const secret = process.env.JWT_SECRET || 'JWT_SECRET';
 
-rootRouter.route('*')
+authRouter.route('*')
     .all((req, res, next) => {
         if (req.path === loginPath) {
             return next();
@@ -28,7 +28,7 @@ rootRouter.route('*')
         }
     });
 
-rootRouter.route(loginPath)
+authRouter.route(loginPath)
     .post(validateAuthenticateSchema())
     .post((req, res) => {
         const user = userRepository.getUserByLogin(req.body.username);

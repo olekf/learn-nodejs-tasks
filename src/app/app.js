@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import { userRouter } from '../routes/user';
-import { rootRouter } from '../routes/root';
+import { authRouter } from '../routes/auth';
 import { logger } from '../config/winston';
 
 const app = express();
@@ -9,7 +9,7 @@ const app = express();
 app.listen(3000);
 app.use(express.json());
 app.use(morgan(':method :url'));
-app.use('/', rootRouter);
+app.use('/', authRouter);
 app.use('/users', userRouter);
 
 app.use((err, req, res, next) => {
