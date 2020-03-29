@@ -9,7 +9,7 @@ import { corsOptions } from '../config/cors';
 
 const app = express();
 
-app.listen(3000);
+app.listen(process.env.PORT);
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(morgan(':method :url'));
