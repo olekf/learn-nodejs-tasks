@@ -19,7 +19,8 @@
     "build": "babel src -d lib",
     "task1_1": "nodemon --exec babel-node src/task1/task1_1",
     "task1_2": "nodemon --exec babel-node src/task1/task1_2",
-    "app": "nodemon --exec 'eslint src/**/*.js && babel-node src/app/app'"
+    "app": "nodemon --exec 'eslint src/**/*.js && babel-node src/app/app'",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "@babel/preset-env": "^7.8.4",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
+    "jest": "^25.2.3",
     "nodemon": "^2.0.2"
   },
   "dependencies": {

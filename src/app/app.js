@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { userRouter } from '../routes/user';
+import { groupRouter } from '../routes/group';
 import { authRouter } from '../routes/auth';
 import { logger } from '../config/winston';
 import { corsOptions } from '../config/cors';
@@ -14,6 +15,7 @@ app.use(cors(corsOptions));
 app.use(morgan(':method :url'));
 app.use('/', authRouter);
 app.use('/users', userRouter);
+app.use('/groups', groupRouter);
 
 app.use((err, req, res, next) => {
     logger.error(`${req.method} ${req.url} Error message: ${err.message}`);
