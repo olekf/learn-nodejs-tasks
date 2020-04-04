@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { logger } from '../config/winston';
+import { groupRepository } from './group';
 
-class UserRepository {
+export class UserRepository {
     constructor() {
         this._users = new Map();
 
@@ -12,7 +13,7 @@ class UserRepository {
             age: 130
         });
 
-        logger.info(`Use admin password: ${defaultPassword}`);
+        logger.debug(`Use admin password: ${defaultPassword}`);
     }
 
     getUserById(userId) {
@@ -59,6 +60,10 @@ class UserRepository {
 
     getAllUsers() {
         return Array.from(this._users.values(), user => Object.assign({}, user));
+    }
+
+    getUserGroup(groupId) {
+        return groupRepository.getGroupById(groupId);
     }
 }
 
