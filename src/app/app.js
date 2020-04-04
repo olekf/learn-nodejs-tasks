@@ -1,6 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../config/swagger';
 import { userRouter } from '../routes/user';
 import { groupRouter } from '../routes/group';
 import { authRouter } from '../routes/auth';
@@ -13,6 +15,7 @@ app.listen(process.env.PORT);
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(morgan(':method :url'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', authRouter);
 app.use('/users', userRouter);
 app.use('/groups', groupRouter);

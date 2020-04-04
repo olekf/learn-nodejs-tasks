@@ -1,0 +1,499 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "learn-nodejs-swagger API",
+    "contact" : {
+      "email" : "aleksandr.fedorov@gmail.com"
+    }
+  },
+  "tags" : [ {
+    "name" : "auth",
+    "description" : "User authorization"
+  }, {
+    "name" : "user",
+    "description" : "User operations"
+  }, {
+    "name" : "group",
+    "description" : "User group operations"
+  } ],
+  "paths" : {
+    "/login" : {
+      "post" : {
+        "tags" : [ "auth" ],
+        "summary" : "user authorization",
+        "description" : "authorizes user by username and password and returns JWT token",
+        "operationId" : "login",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "credentials",
+          "description" : "User credentials",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UserCredentials"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful authentication",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "unauthorized error"
+          },
+          "403" : {
+            "description" : "forbidden error"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/users" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "get users",
+        "description" : "get auto-suggest list from limit users, sorted by login property and filtered by loginSubstringin the login property or get all users if loginSubstring or limit are missed",
+        "operationId" : "getUsers",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "loginSubstring",
+          "in" : "query",
+          "description" : "login substring",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "type" : "integer",
+          "minimum" : 0,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          },
+          "401" : {
+            "description" : "unauthorized error"
+          },
+          "403" : {
+            "description" : "forbidden error"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        },
+        "security" : [ {
+          "jwt" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "user" ],
+        "summary" : "add new user",
+        "description" : "Adds an user to the system",
+        "operationId" : "createUser",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "user",
+          "description" : "User to add",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UserDetails"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "user created",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "unauthorized error"
+          },
+          "403" : {
+            "description" : "forbidden error"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        },
+        "security" : [ {
+          "jwt" : [ ]
+        } ]
+      }
+    },
+    "/users/{id}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "get user",
+        "description" : "Gets existing user",
+        "operationId" : "getUser",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "User ID",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "unauthorized error"
+          },
+          "403" : {
+            "description" : "forbidden error"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        },
+        "security" : [ {
+          "jwt" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "user" ],
+        "summary" : "update user",
+        "description" : "Updates existing user",
+        "operationId" : "updateUser",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "User ID",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "user",
+          "description" : "User to update",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UserDetails"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "user updated",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "400" : {
+            "description" : "invalid input"
+          },
+          "401" : {
+            "description" : "unauthorized error"
+          },
+          "403" : {
+            "description" : "forbidden error"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        },
+        "security" : [ {
+          "jwt" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "user" ],
+        "summary" : "delete user",
+        "description" : "Deletes existing user",
+        "operationId" : "deleteUser",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "User ID",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User successfully deleted",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "400" : {
+            "description" : "invalid input"
+          },
+          "401" : {
+            "description" : "unauthorized error"
+          },
+          "403" : {
+            "description" : "forbidden error"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        },
+        "security" : [ {
+          "jwt" : [ ]
+        } ]
+      }
+    },
+    "/groups" : {
+      "get" : {
+        "tags" : [ "group" ],
+        "summary" : "get user groups",
+        "description" : "Get all user groups",
+        "operationId" : "getGroups",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "User successfully deleted",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "400" : {
+            "description" : "invalid input"
+          },
+          "401" : {
+            "description" : "unauthorized error"
+          },
+          "403" : {
+            "description" : "forbidden error"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        },
+        "security" : [ {
+          "jwt" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "group" ],
+        "summary" : "add new group",
+        "description" : "Adds an user group to the system",
+        "operationId" : "createGroup",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "group",
+          "description" : "User group to add",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/GroupDetails"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "user group created",
+            "schema" : {
+              "$ref" : "#/definitions/Group"
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "unauthorized error"
+          },
+          "403" : {
+            "description" : "forbidden error"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        },
+        "security" : [ {
+          "jwt" : [ ]
+        } ]
+      }
+    },
+    "/groups/{id}" : {
+      "get" : {
+        "tags" : [ "group" ],
+        "summary" : "get user group",
+        "description" : "Gets existing user group",
+        "operationId" : "getGroup",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "User group ID",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "$ref" : "#/definitions/Group"
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "unauthorized error"
+          },
+          "403" : {
+            "description" : "forbidden error"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        },
+        "security" : [ {
+          "jwt" : [ ]
+        } ]
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "jwt" : {
+      "type" : "apiKey",
+      "name" : "x-access-token",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "UserCredentials" : {
+      "type" : "object",
+      "required" : [ "password", "username" ],
+      "properties" : {
+        "username" : {
+          "type" : "string",
+          "example" : "admin"
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "password123"
+        }
+      }
+    },
+    "UserDetails" : {
+      "type" : "object",
+      "required" : [ "age", "login", "password" ],
+      "properties" : {
+        "login" : {
+          "type" : "string",
+          "example" : "user123",
+          "minLength" : 3,
+          "maxLength" : 30
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "password123",
+          "pattern" : "^(?=.*[a-zA-Z])(?=.*[0-9]).*$"
+        },
+        "age" : {
+          "type" : "integer",
+          "example" : 10,
+          "minimum" : 4,
+          "maximum" : 130
+        }
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "required" : [ "age", "id", "login", "password" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "login" : {
+          "type" : "string",
+          "example" : "user123",
+          "minLength" : 3,
+          "maxLength" : 30
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "password123",
+          "pattern" : "^(?=.*[a-zA-Z])(?=.*[0-9]).*$"
+        },
+        "age" : {
+          "type" : "integer",
+          "example" : 10,
+          "minimum" : 4,
+          "maximum" : 130
+        }
+      }
+    },
+    "GroupDetails" : {
+      "type" : "object",
+      "required" : [ "name", "permissions" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "group123"
+        },
+        "permissions" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "READ",
+            "pattern" : "^(READ|WRITE|DELETE|SHARE|UPLOAD_FILES)$"
+          }
+        }
+      }
+    },
+    "Group" : {
+      "type" : "object",
+      "required" : [ "id", "name", "permissions" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "group123"
+        },
+        "permissions" : {
+          "type" : "string",
+          "example" : "password123",
+          "pattern" : "^(?=.*[a-zA-Z])(?=.*[0-9]).*$"
+        }
+      }
+    }
+  }
+}

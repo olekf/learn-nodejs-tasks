@@ -1,4 +1,4 @@
-const whitelist = ['http://example1.com', 'http://example2.com'];
+const whitelist = ['http://example1.com', 'http://example2.com', `http://localhost:${process.env.PORT}`];
 
 export const corsOptions = {
     origin: (origin, callback) => {
