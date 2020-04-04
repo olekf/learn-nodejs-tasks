@@ -11,25 +11,27 @@ beforeEach(() => {
     groupRepository = new GroupRepository();
 });
 
-test('creates group', () => {
-    groupRepository.createGroup(testGroup);
+describe('group CRUD', () => {
+    test('creates group', () => {
+        groupRepository.createGroup(testGroup);
 
-    expect(groupRepository._groups.length).toBe(1);
-});
+        expect(groupRepository._groups.length).toBe(1);
+    });
 
-test('gets group by id', () => {
-    const createdGroup = groupRepository.createGroup(testGroup);
+    test('gets group by id', () => {
+        const createdGroup = groupRepository.createGroup(testGroup);
 
-    const group = groupRepository.getGroupById(createdGroup.id);
+        const group = groupRepository.getGroupById(createdGroup.id);
 
-    expect(group.id).toBe(createdGroup.id);
-});
+        expect(group.id).toBe(createdGroup.id);
+    });
 
-test('gets all groups', () => {
-    groupRepository.createGroup(testGroup);
-    groupRepository.createGroup(testGroup);
+    test('gets all groups', () => {
+        groupRepository.createGroup(testGroup);
+        groupRepository.createGroup(testGroup);
 
-    const groups = groupRepository.getAllGroups();
+        const groups = groupRepository.getAllGroups();
 
-    expect(groups.length).toBe(2);
+        expect(groups.length).toBe(2);
+    });
 });
