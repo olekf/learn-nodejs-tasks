@@ -47,6 +47,7 @@
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "latest",
+    "swagger-ui-express": "^4.1.4",
     "uuid": "latest",
     "winston": "^3.2.1"
   }

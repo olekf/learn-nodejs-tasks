@@ -37,7 +37,7 @@ authRouter.route(loginPath)
             res.status(403).send('Bad username/password combination');
         } else {
             const payload = { userId: user.id };
-            const token = jwt.sign(payload, secret, { expiresIn: 30 });
+            const token = jwt.sign(payload, secret, { expiresIn: 120 });
             res.send(token);
         }
     });
